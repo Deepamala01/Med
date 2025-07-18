@@ -1,0 +1,65 @@
+<!-- paracetamol.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Paracetamol Dosage Info</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    label, input, select { display: block; margin: 0.5em 0; }
+    .output { margin-top: 1em; font-weight: bold; color: green; }
+    .dates { margin-top: 1em; font-weight: bold; color: navy; }
+  </style>
+</head>
+<body>
+  <h1>Paracetamol</h1>
+  <p><strong>Usage:</strong> Used to treat fever and mild to moderate pain.</p>
+  <p><strong>Symptoms Treated:</strong> Fever, headache, muscle aches, arthritis, backache, toothaches, colds.</p>
+
+  <form id="dosageForm">
+    <p><strong>Manufacturing Date:</strong> <span id="mgf">2024-06-01</span></p>
+    <p><strong>Expiry Date:</strong> <span id="exp">2026-05-31</span></p>
+
+    <label for="age">Age (in years):</label>
+    <input type="number" id="age" name="age" min="0" required>
+
+    <label for="weight">Weight (in kg):</label>
+    <input type="number" id="weight" name="weight" min="0" required>
+
+    <label for="height">Height (in cm):</label>
+    <input type="number" id="height" name="height" min="0" required>
+
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender">
+      <option value="male">Male</option>
+      <option value="female">Female</option>
+      <option value="other">Other</option>
+    </select>
+
+    <button type="button" onclick="calculateDosage()">Calculate Dosage</button>
+  </form>
+
+  <div class="output" id="dosageResult"></div>
+  <div class="dates" id="dateInfo"></div>
+
+  <script>
+    function calculateDosage() {
+      const age = parseFloat(document.getElementById('age').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const mgfDate = document.getElementById('mgf').innerText;
+      const expDate = document.getElementById('exp').innerText;
+      let dosage = 0;
+
+      if (!isNaN(weight) && age >= 1) {
+        dosage = (12.5 * weight).toFixed(2);
+        document.getElementById('dosageResult').innerText = `Recommended dosage: ${dosage} mg per dose (every 4–6 hours). Max 4 doses per day.`;
+        document.getElementById('dateInfo').innerText = `Manufactured on: ${mgfDate} | Expires on: ${expDate}`;
+      } else {
+        document.getElementById('dosageResult').innerText = 'Please enter valid age and weight.';
+        document.getElementById('dateInfo').innerText = '';
+      }
+    }
+  </script>
+</body>
+</html>
